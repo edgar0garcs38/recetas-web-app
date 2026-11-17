@@ -1,0 +1,25 @@
+<div class="lista-wrapper">
+  <input type="text" placeholder="Buscar receta..." [(ngModel)]="filtro"/>
+
+  <div *ngIf="recetas.length === 0">No hay recetas registradas.</div>
+
+  <ul>
+    <li *ngFor="let r of recetas | slice:0:100">
+      <div class="card">
+        <div class="card-body">
+          <h3 (click)="verDetalle(r.id)" class="title">{{ r.titulo }}</h3>
+          <p *ngIf="r.descripcion">{{ r.descripcion }}</p>
+
+          <div class="actions">
+            <button (click)="editar(r.id)">Editar</button>
+            <button (click)="eliminar(r.id)">Eliminar</button>
+            <button (click)="toggleFavorita(r.id)" [attr.aria-pressed]="r.favorita">
+              <span *ngIf="r.favorita">★ Favorita</span>
+              <span *ngIf="!r.favorita">☆ Marcar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

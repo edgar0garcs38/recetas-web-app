@@ -1,0 +1,19 @@
+<header class="app-header">
+  <div class="container">
+    <div class="brand">
+      <a routerLink="/">🍳 Recetario</a>
+    </div>
+
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+      <a routerLink="/agregar" routerLinkActive="active">Agregar receta</a>
+      <a routerLink="/favoritos" routerLinkActive="active">
+        Favoritos <span class="badge" *ngIf="favoritasCount > 0">{{ favoritasCount }}</span>
+      </a>
+    </nav>
+
+    <div class="actions">
+      <button (click)="irAgregar()" class="btn-add">+ Nueva</button>
+    </div>
+  </div>
+</header>

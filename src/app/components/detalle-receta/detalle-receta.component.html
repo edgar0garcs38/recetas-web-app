@@ -1,0 +1,32 @@
+@if (receta) {
+  <div class="detalle">
+    <h2>{{ receta.titulo }}</h2>
+
+    @if (receta.descripcion) {
+      <p>{{ receta.descripcion }}</p>
+    }
+
+    <h3>Ingredientes</h3>
+    <ul>
+      @for (ing of receta.ingredientes; track $index) {
+        <li>{{ ing }}</li>
+      }
+    </ul>
+
+    <h3>Pasos</h3>
+    <ol>
+      @for (p of receta.pasos; track $index) {
+        <li>{{ p }}</li>
+      }
+    </ol>
+
+    <button (click)="toggleFavorita()">
+      {{ receta.favorita ? '★ Favorita' : '☆ Marcar favorita' }}
+    </button>
+
+    <button (click)="router.navigate(['/editar', receta.id])">Editar</button>
+    <button (click)="router.navigate(['/'])">Volver</button>
+  </div>
+} @else {
+  <p>Receta no encontrada.</p>
+}

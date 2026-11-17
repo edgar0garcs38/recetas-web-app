@@ -1,0 +1,50 @@
+<div class="form-wrapper">
+  <h2>{{ editMode ? 'Editar receta' : 'Agregar receta' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>Título *</label>
+    <input formControlName="titulo" />
+
+    @if (form.get('titulo')?.invalid && form.get('titulo')?.touched) {
+      <div>Título requerido</div>
+    }
+
+    <label>Descripción</label>
+    <textarea formControlName="descripcion"></textarea>
+
+    <section>
+      <h3>Ingredientes</h3>
+      <div formArrayName="ingredientes">
+        @for (ing of ingredientes.controls; let i = $index; track i) {
+          <div>
+            <input [formControlName]="i" placeholder="Ingrediente" />
+            <button type="button" (click)="removeIngrediente(i)">Eliminar</button>
+          </div>
+        }
+      </div>
+      <button type="button" (click)="addIngrediente()">Agregar ingrediente</button>
+    </section>
+
+    <section>
+      <h3>Pasos</h3>
+      <div formArrayName="pasos">
+        @for (paso of pasos.controls; let i = $index; track i) {
+          <div>
+            <textarea [formControlName]="i" placeholder="Paso de preparación"></textarea>
+            <button type="button" (click)="removePaso(i)">Eliminar</button>
+          </div>
+        }
+      </div>
+      <button type="button" (click)="addPaso()">Agregar paso</button>
+    </section>
+
+    <label>
+      <input type="checkbox" formControlName="favorita" /> Marcar como favorita
+    </label>
+
+    <div class="actions">
+      <button type="submit">{{ editMode ? 'Guardar cambios' : 'Crear receta' }}</button>
+      <button type="button" (click)="router.navigate(['/'])">Cancelar</button>
+    </div>
+  </form>
+</div>

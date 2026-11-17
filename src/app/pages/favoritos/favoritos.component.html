@@ -1,0 +1,42 @@
+<div class="favoritos-page container">
+  <h2>Recetas favoritas</h2>
+
+  @if (favoritas.length === 0) {
+    <div class="empty">
+      <p>No tienes recetas marcadas como favoritas todavía.</p>
+      <p>
+        <a routerLink="/agregar">Agrega una receta</a>
+        o vuelve al <a routerLink="/">Inicio</a>.
+      </p>
+    </div>
+  }
+
+  @if (favoritas.length > 0) {
+    <ul class="lista-favoritas">
+      @for (r of favoritas; track r.id) {
+        <li class="card">
+          <div class="card-main">
+            <h3 (click)="verDetalle(r.id)" class="title">{{ r.titulo }}</h3>
+
+            @if (r.descripcion) {
+              <p class="desc">{{ r.descripcion }}</p>
+            }
+
+            <div class="meta">
+              <small>Creada: {{ r.createdAt | date:'mediumDate' }}</small>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button (click)="verDetalle(r.id)">Ver</button>
+            <button (click)="editar(r.id)">Editar</button>
+            <button (click)="toggleFavorita(r.id)">
+              {{ r.favorita ? 'Quitar favorita' : 'Marcar favorita' }}
+            </button>
+            <button (click)="eliminar(r.id)" class="danger">Eliminar</button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>
